@@ -30,7 +30,13 @@ function operate(operator, number1, number2) {
         output = subtract(number1, number2);
     } else if (operator=="/") {
         output = divide(number1, number2);
-    }              
+    }
+    updatePrimaryDisplay(output);
+    updateSecondaryDisplay("=");
+    firstNumberDisplay = output;
+    secondNumberDisplay = 0;
+    finalResultDisplay = output;
+    operandDisplay="";     
 }
 
 function firstNumberDisplayConcat(buttonNumber){
