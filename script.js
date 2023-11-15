@@ -45,3 +45,16 @@ function firstNumberDisplayConcat(buttonNumber){
             return firstNumberDisplay;
         }
 }
+
+function secondNumberDisplayConcat(buttonNumber){
+    if (operandDisplay!="") {
+        let currentDisplay = secondNumberDisplay.toString();
+            if (currentDisplay=="0"){
+                currentDisplay="";
+            }
+            secondNumberDisplay = +(currentDisplay+buttonNumber);
+            console.log(`second ${secondNumberDisplay}`);
+            updatePrimaryDisplay(secondNumberDisplay)
+            return secondNumberDisplay;
+    } 
+}
