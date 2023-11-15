@@ -58,3 +58,28 @@ function secondNumberDisplayConcat(buttonNumber){
             return secondNumberDisplay;
     } 
 }
+
+function OperandFeedbackToDisplay(){
+    const operandButtons = document.querySelectorAll(".operand");
+    const operandButtonsArray = Array.from(operandButtons);
+    for (let i=0; i<operandButtonsArray.length; i++) {
+        operandButtonsArray[i].addEventListener("click", (e) => {
+            let operand = e.target;
+            operandDisplay=operand.id;
+            console.log(operand.id);
+            updateSecondaryDisplay(operandDisplay);
+            return operand.id;
+        });
+    }
+}
+
+function secondNumberFeedbackToDisplay(){
+        const numberButtons = (document.querySelectorAll(".number"));
+        const numberButtonsArray = Array.from(numberButtons);
+        for (let i=0; i<numberButtonsArray.length; i++) {
+            numberButtonsArray[i].addEventListener("click", (e) => {
+            let number = e.target;
+            secondNumberDisplayConcat(number.innerText);
+            });
+        }
+}
