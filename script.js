@@ -20,3 +20,15 @@ function divide(number1, number2) {
     return number1/number2;
 }
 
+function operate(operator, number1, number2) {
+    let output =0;
+    if (operator=="+"){
+        output = addition(number1, number2);
+    } else if (operator=="*"){
+        output = multiply(number1, number2);
+    } else if (operator=="-"){
+        output = subtract(number1, number2);
+    } else if (operator=="/") {
+        output = divide(number1, number2);
+    }              
+}
