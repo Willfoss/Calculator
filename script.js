@@ -83,3 +83,19 @@ function secondNumberFeedbackToDisplay(){
             });
         }
 }
+
+function firstNumberFeedbackToDisplay(){ 
+    const numberButtons = (document.querySelectorAll(".number"));
+    const numberButtonsArray = Array.from(numberButtons);
+    for (let i=0; i<numberButtonsArray.length; i++) {
+        numberButtonsArray[i].addEventListener("click", (e) => {
+        let number = e.target;
+        return firstNumberDisplayConcat(number.innerText);
+        });
+    }
+}
+
+function equals(){
+    const equals = document.querySelector("#equals");
+        equals.addEventListener("click", (e) => operate(operandDisplay, firstNumberDisplay, secondNumberDisplay));
+}
