@@ -99,3 +99,25 @@ function equals(){
     const equals = document.querySelector("#equals");
         equals.addEventListener("click", (e) => operate(operandDisplay, firstNumberDisplay, secondNumberDisplay));
 }
+
+function updatePrimaryDisplay(text){
+    const display = document.querySelector("#primary-display")
+    display.innerText = text
+}
+function updateSecondaryDisplay(text){
+    const display = document.querySelector("#secondary-display")
+    if (text == "/") {
+        text = "÷";
+    } else if (text == "*"){
+        text = "x";
+    } else {
+        text=text;
+    }
+    display.innerText = text
+}
+
+secondNumberFeedbackToDisplay();
+firstNumberFeedbackToDisplay();
+OperandFeedbackToDisplay();
+equals();
+clear();
