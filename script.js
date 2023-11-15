@@ -32,3 +32,16 @@ function operate(operator, number1, number2) {
         output = divide(number1, number2);
     }              
 }
+
+function firstNumberDisplayConcat(buttonNumber){
+    if (operandDisplay=="") {
+        let currentDisplay = firstNumberDisplay.toString();
+            if (currentDisplay=="0"){
+                currentDisplay="";
+            }
+            firstNumberDisplay = +(currentDisplay+buttonNumber);
+            console.log(`first ${firstNumberDisplay}`);
+            updatePrimaryDisplay(firstNumberDisplay);
+            return firstNumberDisplay;
+        }
+}
