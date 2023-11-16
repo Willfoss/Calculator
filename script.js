@@ -1,14 +1,38 @@
-let firstNumberDisplay = 0;
-let secondNumberDisplay = 0;
+//global variables for results. note numbers start off as strings to help will appendage. converted to number during operate function.
+let firstNumberDisplay = "";
+let secondNumberDisplay = "";
 let operandDisplay = "";
-let FinalResult = 0;
+let finalResultDisplay = "";
 
+//DOM events
+const numberButtons = document.querySelectorAll(".number");
+const operandButtons = document.querySelectorAll(".operand");
+const equalsButton = document.querySelector("#equals");
+const clearButton = document.querySelector("#clear");
+const primaryDisplay = document.querySelector("#primary-display");
+const secondaryDisplay = document.querySelector("#secondary-display");
+const deleteButton= document.querySelector("#delete");
+
+numberButtons.forEach((button) => 
+    button.addEventListener("click", () => {
+    if (operandDisplay=="") {
+        firstNumberDisplayConcat(button.innerText);
+    } else {
+        secondNumberDisplayConcat(button.innerText);
+    }
+}));
+
+operandButtons.forEach((button) => button.addEventListener("click", () => operand(button.id)));
+equalsButton.addEventListener("click", () => operate(operandDisplay, firstNumberDisplay, secondNumberDisplay));
+clearButton.addEventListener("click", () => clear());
+deleteButton.addEventListener("click", () => deleteLastNumber());
+
+//calculator functions
 function addition(number1,number2){
     return number1+number2;
 }
 
-function multiply(number1, number2) {
-    console.log(`final ${number1*number2}`);
+function multiply(number1, number2) {          
     return number1*number2;
 }
 
@@ -20,110 +44,91 @@ function divide(number1, number2) {
     return number1/number2;
 }
 
-function operate(operator, number1, number2) {
+//changes to global variables allow continuous operation of calculator (i.e. X + Y / Z * ....)
+function operate(operator, number1=1, number2=1) {
     let output =0;
     if (operator=="+"){
-        output = addition(number1, number2);
+        output = addition(+number1, +number2);
     } else if (operator=="*"){
-        output = multiply(number1, number2);
+        output = multiply(+number1, +number2);
     } else if (operator=="-"){
-        output = subtract(number1, number2);
+        output = subtract(+number1, +number2);
     } else if (operator=="/") {
-        output = divide(number1, number2);
+        output = divide(+number1, +number2);
     }
+    console.log(`first ${firstNumberDisplay}`)
+    console.log(`second ${secondNumberDisplay}`)
     updatePrimaryDisplay(output);
-    updateSecondaryDisplay("=");
-    firstNumberDisplay = output;
-    secondNumberDisplay = 0;
-    finalResultDisplay = output;
-    operandDisplay="";     
+    finalResultDisplay = output.toString();
+    updateSecondaryDisplay();
+    secondNumberDisplay = "";
+    operandDisplay="";
+    firstNumberDisplay = output.toString();
+    console.log(`first ${firstNumberDisplay}`)
+    console.log(`second ${secondNumberDisplay}`)                  
 }
 
 function firstNumberDisplayConcat(buttonNumber){
-    if (operandDisplay=="") {
-        let currentDisplay = firstNumberDisplay.toString();
-            if (currentDisplay=="0"){
-                currentDisplay="";
-            }
-            firstNumberDisplay = +(currentDisplay+buttonNumber);
-            console.log(`first ${firstNumberDisplay}`);
-            updatePrimaryDisplay(firstNumberDisplay);
-            return firstNumberDisplay;
-        }
+    let currentDisplay = firstNumberDisplay.toString();
+    firstNumberDisplay = (currentDisplay+buttonNumber);
+    
+    updatePrimaryDisplay(firstNumberDisplay);
 }
 
 function secondNumberDisplayConcat(buttonNumber){
-    if (operandDisplay!="") {
-        let currentDisplay = secondNumberDisplay.toString();
-            if (currentDisplay=="0"){
-                currentDisplay="";
-            }
-            secondNumberDisplay = +(currentDisplay+buttonNumber);
-            console.log(`second ${secondNumberDisplay}`);
-            updatePrimaryDisplay(secondNumberDisplay)
-            return secondNumberDisplay;
-    } 
+    let currentDisplay = secondNumberDisplay.toString();
+    secondNumberDisplay = (currentDisplay+buttonNumber);
+    
+    updatePrimaryDisplay(secondNumberDisplay);
 }
 
-function OperandFeedbackToDisplay(){
-    const operandButtons = document.querySelectorAll(".operand");
-    const operandButtonsArray = Array.from(operandButtons);
-    for (let i=0; i<operandButtonsArray.length; i++) {
-        operandButtonsArray[i].addEventListener("click", (e) => {
-            let operand = e.target;
-            operandDisplay=operand.id;
-            console.log(operand.id);
-            updateSecondaryDisplay(operandDisplay);
-            return operand.id;
-        });
+//required to handle the case of both: 1) automatically updating the total while chaining operands and 2) the single case of pressing equals.
+function operand(operand){
+    if (firstNumberDisplay!=0 && secondNumberDisplay!=0){
+        operate(operandDisplay, firstNumberDisplay, secondNumberDisplay);
+        operandDisplay=operand;
+        updateSecondaryDisplay()
+    } else {
+        operandDisplay=operand;
+        updateSecondaryDisplay();
     }
 }
 
-function secondNumberFeedbackToDisplay(){
-        const numberButtons = (document.querySelectorAll(".number"));
-        const numberButtonsArray = Array.from(numberButtons);
-        for (let i=0; i<numberButtonsArray.length; i++) {
-            numberButtonsArray[i].addEventListener("click", (e) => {
-            let number = e.target;
-            secondNumberDisplayConcat(number.innerText);
-            });
-        }
-}
-
-function firstNumberFeedbackToDisplay(){ 
-    const numberButtons = (document.querySelectorAll(".number"));
-    const numberButtonsArray = Array.from(numberButtons);
-    for (let i=0; i<numberButtonsArray.length; i++) {
-        numberButtonsArray[i].addEventListener("click", (e) => {
-        let number = e.target;
-        return firstNumberDisplayConcat(number.innerText);
-        });
-    }
-}
-
-function equals(){
-    const equals = document.querySelector("#equals");
-        equals.addEventListener("click", (e) => operate(operandDisplay, firstNumberDisplay, secondNumberDisplay));
+function clear(){
+    firstNumberDisplay = "";
+    secondNumberDisplay = "";
+    finalResultDisplay = 0;
+    operandDisplay="";
+    updatePrimaryDisplay(firstNumberDisplay);
+    updateSecondaryDisplay(operandDisplay);
 }
 
 function updatePrimaryDisplay(text){
-    const display = document.querySelector("#primary-display")
-    display.innerText = text
+    primaryDisplay.innerText = text;
 }
-function updateSecondaryDisplay(text){
-    const display = document.querySelector("#secondary-display")
-    if (text == "/") {
+
+function deleteLastNumber(){
+    console.log(firstNumberDisplay);
+    if (operandDisplay=="") {
+        firstNumberDisplay=firstNumberDisplay.slice(0,-1);
+        updatePrimaryDisplay(firstNumberDisplay);
+        console.log(firstNumberDisplay);
+    } else {
+        secondNumberDisplay=secondNumberDisplay.slice(0,-1);
+        updatePrimaryDisplay(secondNumberDisplay);
+        console.log(secondNumberDisplay);
+    }
+    
+}
+
+function updateSecondaryDisplay(){
+    let text= operandDisplay
+    if ( text== "/") {
         text = "÷";
     } else if (text == "*"){
         text = "x";
     } else {
         text=text;
     }
-    display.innerText = text
+    secondaryDisplay.innerText = `${firstNumberDisplay} ${text} ${secondNumberDisplay}`;
 }
-
-secondNumberFeedbackToDisplay();
-firstNumberFeedbackToDisplay();
-OperandFeedbackToDisplay();
-equals();
-clear();
