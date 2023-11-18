@@ -65,9 +65,11 @@ function operate(operator, number1=1, number2=1) {
 }
 
 function firstNumberDisplayConcat(buttonNumber){
+    if (finalResultDisplay!=""){
+        firstNumberDisplay="";
+    }
     let currentDisplay = firstNumberDisplay.toString();
     firstNumberDisplay = (currentDisplay+buttonNumber);
-    
     updatePrimaryDisplay(firstNumberDisplay);
 }
 
@@ -112,7 +114,6 @@ function deleteLastNumber(){
         secondNumberDisplay=secondNumberDisplay.slice(0,-1);
         updatePrimaryDisplay(secondNumberDisplay);
     }
-    
 }
 
 function updateSecondaryDisplay(){
