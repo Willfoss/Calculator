@@ -10,6 +10,7 @@ body {
     align-items: center;
     min-height: 500px;
     height: 75vh;
+    background-color: blanchedalmond;
 }
 
 #calculator-container {
@@ -62,11 +63,11 @@ button{
 
 #primary-display {
     text-align: right;
-    min-height: 32px;
-    font-size: 26px;
+    min-height: 50px;
+    font-size: 32px;
 }
 #secondary-display {
     text-align: right;
-    min-height: 20px;
+    min-height: 25px;
     font-size: 16px;
 }
