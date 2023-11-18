@@ -56,16 +56,12 @@ function operate(operator, number1=1, number2=1) {
     } else if (operator=="/") {
         output = divide(+number1, +number2);
     }
-    console.log(`first ${firstNumberDisplay}`)
-    console.log(`second ${secondNumberDisplay}`)
     updatePrimaryDisplay(output);
     finalResultDisplay = output.toString();
     updateSecondaryDisplay();
     secondNumberDisplay = "";
     operandDisplay="";
-    firstNumberDisplay = output.toString();
-    console.log(`first ${firstNumberDisplay}`)
-    console.log(`second ${secondNumberDisplay}`)                  
+    firstNumberDisplay = output.toString();                
 }
 
 function firstNumberDisplayConcat(buttonNumber){
@@ -112,11 +108,9 @@ function deleteLastNumber(){
     if (operandDisplay=="") {
         firstNumberDisplay=firstNumberDisplay.slice(0,-1);
         updatePrimaryDisplay(firstNumberDisplay);
-        console.log(firstNumberDisplay);
     } else {
         secondNumberDisplay=secondNumberDisplay.slice(0,-1);
         updatePrimaryDisplay(secondNumberDisplay);
-        console.log(secondNumberDisplay);
     }
     
 }
