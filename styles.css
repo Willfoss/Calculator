@@ -17,7 +17,7 @@ body {
     width: 400px;
     background-color:rgb(56, 50, 50);
     border-radius: 10px;
-    padding: 25px;
+    padding: 20px;
 }
 
 #display-container{
@@ -32,12 +32,16 @@ button{
     padding:25px;
     font-size: 20px;
     border-radius: 5px;
-    
 }
 
 .operand {
     background-color: orange;
     border: 2px solid orange;
+}
+
+.number{
+    background-color: rgb(243, 237, 237);
+    border: 2px solid rgb(243, 237, 237);
 }
 
 #clear,
