@@ -20,7 +20,7 @@ body {
 }
 
 #display-container{
-    background-color: teal;
+    background-color: lightcyan;
     border-radius: 5px;
     text-align: right;
     padding:10px;
@@ -31,12 +31,25 @@ button{
     padding:25px;
     font-size: 20px;
     border-radius: 5px;
+    
+}
+
+.operand {
+    background-color: orange;
+    border: 2px solid orange;
+}
+
+#clear,
+#delete,
+#equals{
+    background-color: darkgray;
+    border: 2px solid darkgray;
 }
 
 #button-container {
     display:grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 3px;
+    grid-gap: 8px;
 }
 
 .remove {
@@ -56,11 +69,4 @@ button{
     text-align: right;
     min-height: 20px;
     font-size: 16px;
-
 }
-
-#clear,
-#delete {
-    flex-grow: 2;
-}
-
